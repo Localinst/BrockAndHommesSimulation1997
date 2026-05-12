@@ -59,11 +59,14 @@ class BrockHommes:
         trajectory = self.simulation(beta, n=12000, block=100)
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8))
         ax1.plot(trajectory[:n, 0], linewidth=1.5)
+        ax1.set_ylim(-2, 2)
         ax1.set_title(f'Prezzi $p_t$ - Beta={beta}')
         ax1.grid(True, alpha=0.3)
         ax2.plot(trajectory[:n, 1], linewidth=1.5, color='orange')
+        ax2.set_ylim(-1.1, 1.1)
         ax2.set_title(f'Frazione razionali vs naive $m_t$ - Beta={beta}')
         ax2.grid(True, alpha=0.3)
+        
         plt.tight_layout()
        
         filename = os.path.join(output_dir, f'timeseries_beta_{beta:.2f}.png')
