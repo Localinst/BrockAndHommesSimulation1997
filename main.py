@@ -17,7 +17,7 @@ class BrockHommes:
         # A = Intercept question
         denom= 2*self.B + self.b * (1+m)
         p_next = -self.b * (1-m)*p/denom
-        ins= (self.b/2.0)* ((self.b*(1-m)/denom+1.0)*p**2-self.C)
+        ins= (self.b/2.0)* ((self.b*(1-m)/denom+1.0)**2 *p**2-self.C)
         m_next = np.tanh((beta/2.0)*ins)
         return p_next, m_next
 
