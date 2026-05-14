@@ -1,0 +1,1 @@
+Diagramma generato da un codice python generato da ai, per analizzare il funzionamento del simulatore main.py e plottare il bifurcation diagram e lyapunov exponent
