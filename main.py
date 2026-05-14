@@ -18,8 +18,19 @@ class BrockHommes:
        
         denom= 2*self.B + self.b * (1+m)
         p_next = -self.b * (1-m)*p/denom
-        ins= (self.b/2.0)* ((self.b*(1-m)/denom+1.0)**2 *p**2-self.C)
+        # 3.8 formula
+        
+        noise = np.random.uniform(-0.02, 0.02)
+        p_realized = p_next + noise
+        # noise citato nel paper uniforme tra -0.02 e 0.02
+        
+        profit_rational = (self.b  / 2.0)*(p_realized**2)-self.C
+        profit_naive = (self.b / 2.0)* p * (2*p_next - p)
+        # formula 3.4 
+        
+        ins= profit_rational - profit_naive
         m_next = np.tanh((beta/2.0)*ins)
+        #3.9 formula
         return p_next, m_next
 
     def simulation(self, beta, n= 12000,block=100, p0=0.1, m0=-0.8):
@@ -78,9 +89,12 @@ if __name__ == "__main__":
     os.makedirs(output_dir, exist_ok=True)
     print("Simulazione in corso")
     sim = BrockHommes(B=0.5, b=1.35, C=1.0)
-    betas = [ 4.0,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9,5.0 , 10.0]
+    betas = [0.5, 0.77, 1.0, 2.0, 3.0, 4.0, 4.77 ,5.0 , 10.0,20.0]
     for beta in betas:
         print(f"Generando grafici per beta={beta}")
         sim.plot_attractor(beta, output_dir=output_dir)
         sim.plot_time_series(beta, output_dir=output_dir, n=200)
         
+        
+# β₁ ≈ 0.7777
+# β₂ ≈ 4.7692
